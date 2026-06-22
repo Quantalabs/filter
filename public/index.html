@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Filter</title>
+    <link rel="stylesheet" href="retro.css" />
+    <style>
+      fieldset {
+        margin: 5px 0px;
+      }
+
+      fieldset > * {
+        margin: 0px 5px;
+      }
+
+      fieldset > div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0px;
+      }
+
+      fieldset > div > * {
+        padding: 5px;
+        margin: 0px 5px;
+      }
+
+      fieldset > div > div {
+        padding: 5px 10px !important;
+      }
+
+      .bordered {
+        border: 1px dashed gray;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Filter</h1>
+    <form id="filters" action="/api/get" method="get">
+      <fieldset>
+        <legend>Academic Criteria</legend>
+        <div>
+          <div class="bordered">
+            <label for="sat-min">Min Median SAT</label>
+            <input
+              id="sat-min"
+              name="sat-min"
+              min="400"
+              max="1600"
+              value="1200"
+              type="range"
+              step="10"
+              oninput="this.nextElementSibling.value = this.value"
+              list="sat-ticks"
+            />
+            <output>1200</output>
+          </div>
+          <div class="bordered">
+            <label for="sat-max">Max Median SAT</label>
+            <input
+              id="sat-max"
+              name="sat-max"
+              min="400"
+              max="1600"
+              value="1400"
+              type="range"
+              step="10"
+              oninput="this.nextElementSibling.value = this.value"
+              list="sat-ticks"
+            />
+            <output>1400</output>
+          </div>
+          <datalist id="sat-ticks">
+            <option value="400" label="400"></option>
+            <option value="700"></option>
+            <option value="1000"></option>
+            <option value="1300"></option>
+            <option value="1600" label="1600"></option>
+          </datalist>
+        </div>
+        <div>
+          <div class="bordered">
+            <label for="gpa-min">Min Median GPA</label>
+            <input
+              id="gpa-min"
+              name="gpa-min"
+              min="0"
+              max="5"
+              value="3.0"
+              type="range"
+              step="0.01"
+              oninput="this.nextElementSibling.value = this.value"
+              list="gpa-ticks"
+            />
+            <output>3.00</output>
+          </div>
+          <div class="bordered">
+            <label for="gpa-max">Max Median GPA</label>
+            <input
+              id="gpa-max"
+              name="gpa-max"
+              min="0"
+              max="5"
+              value="4.20"
+              type="range"
+              step="0.01"
+              oninput="this.nextElementSibling.value = this.value"
+              list="gpa-ticks"
+            />
+            <output>4.20</output>
+          </div>
+          <datalist id="gpa-ticks">
+            <option value="0" label="0"></option>
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            <option value="4"></option>
+            <option value="5" label="5"></option>
+          </datalist>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Location</legend>
+        <div>
+          <label for="west">West</label>
+          <input id="west" name="west" type="checkbox" value="west" />
+          <label for="ne">Northeast</label>
+          <input id="ne" name="ne" type="checkbox" value="ne" />
+          <label for="se">Southeast</label>
+          <input id="se" name="se" type="checkbox" value="se" />
+          <label for="mw">Midwest</label>
+          <input id="mw" name="mw" type="checkbox" value="mw" />
+          <label for="sw">Southwest</label>
+          <input id="sw" name="sw" type="checkbox" value="sw" />
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Identity</legend>
+        <div>
+          Type:
+          <label for="priv">Private</label>
+          <input id="priv" name="priv" type="checkbox" value="priv" />
+          <label for="pub">Public</label>
+          <input id="pub" name="pub" type="checkbox" value="pub" />
+        </div>
+        <div>
+          <div class="bordered">
+            <label for="admit-min">Min Admit Rate</label>
+            <input
+              id="admit-min"
+              name="admit-min"
+              min="0"
+              max="100"
+              value="20"
+              type="range"
+              step="1"
+              oninput="this.nextElementSibling.value = this.value"
+              list="admit-ticks"
+            />
+            <output>20</output>%
+          </div>
+          <div class="bordered">
+            <label for="admit-max">Max Admit Rate</label>
+            <input
+              id="admit-max"
+              name="admit-max"
+              min="0"
+              max="100"
+              value="50"
+              type="range"
+              step="1"
+              oninput="this.nextElementSibling.value = this.value"
+              list="admit-ticks"
+            />
+            <output>50</output>%
+          </div>
+          <datalist id="admit-ticks">
+            <option value="0" label="0%"></option>
+            <option value="25"></option>
+            <option value="50"></option>
+            <option value="75"></option>
+            <option value="100" label="100%"></option>
+          </datalist>
+        </div>
+      </fieldset>
+      <input type="submit" />
+    </form>
+  </body>
+</html>
