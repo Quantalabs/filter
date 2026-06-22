@@ -1,0 +1,13 @@
+{
+  "name": "filter",
+  "version": "1.0.0",
+  "description": "Filter colleges using CDS data.",
+  "main": "index.js",
+  "repository": "https://github.com/Quantalabs/filter",
+  "author": "Arvind Venkatesh <contact@rvind.cc>",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
