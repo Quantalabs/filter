@@ -2,7 +2,8 @@ import express from "express";
 import fetch from "sync-fetch";
 
 const app = express();
-const port = 8080;
+const router = express.Router();
+const port = 5000;
 
 let schools = fetch(
   `https://api.collegedata.fyi/rest/v1/school_browser_rows?apikey=${process.env.APIKEY}`,
@@ -156,7 +157,7 @@ let fit = (
   return fits;
 };
 
-app.get("/api/get", (req, res) => {
+router.get("/api/get", (req, res) => {
   let regions = ["west", "ne", "south", "mw", "pacific"];
   let locs = [];
 
@@ -188,7 +189,9 @@ app.get("/api/get", (req, res) => {
   );
 });
 
-app.use(express.static("public"));
+router.use(express.static("public"));
+
+app.use('/filter', router)
 
 app.listen(port, () => {
   console.log(`Server @ http://localhost:${port}/`);
