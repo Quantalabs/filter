@@ -173,9 +173,8 @@ app.get("/api/get", (req, res) => {
   if (req.query["priv"]) {
     type.push("priv");
   }
-
-  res.send(
-    JSON.stringify(
+  
+  res.json(
       fit(
         Number(req.query["sat-min"]),
         Number(req.query["sat-max"]),
@@ -186,7 +185,6 @@ app.get("/api/get", (req, res) => {
         Number(req.query["admit-max"]),
         Number(req.query["admit-min"]),
       ),
-    ),
   );
 });
 

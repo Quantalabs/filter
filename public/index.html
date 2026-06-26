@@ -34,6 +34,40 @@
       .bordered {
         border: 1px dashed gray;
       }
+
+      .loader {
+        width: 48px;
+        height: 48px;
+        border: 5px solid #fff;
+        border-bottom-color: #ff3d00;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+        padding: 0px !important;
+        margin 0px !important;
+      }
+
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      #schools {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #schools * {
+        padding: 10px 20px;
+        margin: 10px 0px;
+      }
     </style>
   </head>
   <body>
@@ -187,5 +221,33 @@
       </fieldset>
       <input type="submit" />
     </form>
+
+    <hr />
+
+    <div id="schools"></div>
+
+    <script>
+      const form = document.getElementById("filters");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        document.getElementById("schools").innerHTML =
+          `<span id="load" class="loader"></span>`;
+        document.getElementById("load").style.display = "block";
+        const queryString = new URLSearchParams(new FormData(this)).toString();
+        console.log(`${this.action}?${queryString}`);
+
+        let response = await fetch(`${this.action}?${queryString}`);
+        let schools = await response.json();
+
+        for (let school of schools) {
+          document.getElementById("schools").innerHTML +=
+            `<div class='bordered'>${school}</div>`;
+        }
+
+        document.getElementById("load").style.display = "none";
+      });
+    </script>
   </body>
 </html>
