@@ -116,13 +116,6 @@ let fit = (
       let t = true;
       let year = detailed[0]["canonical_year"];
       for (let rec of detailed) {
-        if (
-          rec["field_id"] == "A.201" &&
-          school["school_id"] ==
-            "california-polytechnic-state-university-san-luis-obispo"
-        ) {
-          console.log(type, school);
-        }
         switch (rec["field_id"]) {
           case "C1201":
             if (rec["value_num"] >= min_gpa && rec["value_num"] <= max_gpa) {

@@ -238,12 +238,19 @@
         const queryString = new URLSearchParams(new FormData(this)).toString();
         console.log(`${this.action}?${queryString}`);
 
-        let response = await fetch(`${this.action}?${queryString}`);
-        let schools = await response.json();
-
-        for (let school of schools) {
-          document.getElementById("schools").innerHTML +=
-            `<div class='bordered'>${school}</div>`;
+        try {
+          let response = await fetch(`${this.action}?${queryString}`);
+          let schools = await response.json();
+          for (let school of schools) {
+            document.getElementById("schools").innerHTML +=
+              `<div class='bordered'>${school}</div>`;
+          }
+        }
+        catch (error) {
+          document.getElementById("schools").innerHTML += `The following error occured, try again later.
+            ${error}
+            <a href="https://github.com/quantalabs/filter/issues">Report this bug!</a>
+            `
         }
 
         document.getElementById("load").style.display = "none";
