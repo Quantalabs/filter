@@ -245,12 +245,12 @@
             document.getElementById("schools").innerHTML +=
               `<div class='bordered'>${school}</div>`;
           }
-        }
-        catch (error) {
-          document.getElementById("schools").innerHTML += `The following error occured, try again later.
+        } catch (error) {
+          document.getElementById("schools").innerHTML +=
+            `The following error occured, try again later.
             ${error}
             <a href="https://github.com/quantalabs/filter/issues">Report this bug!</a>
-            `
+            `;
         }
 
         document.getElementById("load").style.display = "none";

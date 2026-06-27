@@ -14,4 +14,4 @@ A basic web app that compiles CDS data to filter and compare colleges.
 - More filtering options, and expanding scope of schools beyond the US
 - Some type of ranked picklisting feature
 - Displaying more information about valid schools
-- Some schools misidentified as public or private. 
+- Some schools misidentified as public or private.
