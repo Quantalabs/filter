@@ -91,30 +91,25 @@ let fit = (
 ) => {
   let fits = [];
   for (let school of schools) {
-    if (!lookup[school["school_id"]]) {
-      continue;
-    }
     if (
+      lookup[school['school_id']] &&
+      ok_loc(lookup[school["school_id"]]["state"], loc) &&
+      !fits.includes(school["school_id"]) && 
       school["sat_composite_p50"] > min_sat &&
       school["sat_composite_p50"] < max_sat &&
       school["admitted"] / school["applied"] > admit_min / 100 &&
-      school["admitted"] / school["applied"] < admit_max / 100 &&
+      school["admitted"] / school["applied"] < admit_max / 100 
       // (
       //   (lookup[school['school_id']] && ok_loc(lookup[school['school_id']]["state"], loc)) ||
       //   lookup[school['school_id']] == undefined
       // )
-      ok_loc(lookup[school["school_id"]]["state"], loc)
     ) {
-      if (fits.includes(school["school_id"])) {
-        continue;
-      }
-
       let detailed = fetch(
         `https://api.collegedata.fyi/rest/v1/cds_fields?school_id=eq.${school["school_id"]}&apikey=${process.env.APIKEY}`,
       ).json();
 
-      let gpa = true;
-      let t = true;
+      let gpa = undefined;
+      let t = undefined;
       let year = detailed[0]["canonical_year"];
       for (let rec of detailed) {
         switch (rec["field_id"]) {
@@ -125,6 +120,7 @@ let fit = (
               gpa = false;
             }
           case "A.102":
+            if (type.length >= 2) { t = true; continue; }
             if (
               type.reduce((acc, curr) => {
                 if (acc == true || rec["value_text"].includes(curr)) {
@@ -139,9 +135,12 @@ let fit = (
               t = false;
             }
           default:
-            continue;
+            if ((gpa != undefined && t != undefined) || rec["canonical_year"] != year) {
+              break;
+            }
         }
       }
+      // if ((gpa || gpa == undefined) && (t || t == undefined)) {
       if (gpa && t) {
         fits.push(school["school_id"]);
       }
