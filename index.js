@@ -118,7 +118,7 @@ let fit = (
           min_gpa <= g &&
           max_gpa >= g
         ) {
-          fits.push(id);
+          fits.push(school["school_name"]);
         }
       } else {
         let detailed = fetch(
@@ -170,7 +170,7 @@ let fit = (
         }
         // if ((gpa || gpa == undefined) && (t || t == undefined)) {
         if (gpa && t) {
-          fits.push(id);
+          fits.push(school["school_name"]);
         }
       }
     }
